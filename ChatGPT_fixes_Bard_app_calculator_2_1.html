@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+
+#display {
+  width: 200px;
+  font-size: 24px;
+}
+
+#buttons {
+  width: 200px;
+  margin-top: 20px;
+}
+
+#buttons button {
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#buttons button:hover {
+  background-color: #444;
+}
+
+#buttons button:active {
+  background-color: #555;
+}
+</style>
+</head>
+<body>
+<input type="text" id="display" readonly>
+<div id="buttons">
+  <button>7</button>
+  <button>8</button>
+  <button>9</button>
+  <button data-action="add">+</button>
+  <br>
+  <button>4</button>
+  <button>5</button>
+  <button>6</button>
+  <button data-action="subtract">-</button>
+  <br>
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button data-action="multiply">*</button>
+  <br>
+  <button>0</button>
+  <button data-action="clear">C</button>
+  <button data-action="equal">=</button>
+  <button data-action="divide">/</button>
+</div>
+<script>
+var display = document.getElementById("display");
+var buttons = document.getElementById("buttons");
+
+var firstNumber = '';
+var secondNumber = '';
+var operator = '';
+
+function clear() {
+  display.value = "";
+  firstNumber = '';
+  secondNumber = '';
+  operator = '';
+}
+
+function setOperator(op) {
+  if (operator === '' && firstNumber !== '') {
+    operator = op;
+    display.value += operator;
+  }
+}
+
+function appendNumber(num) {
+  if (operator === '') {
+    firstNumber += num;
+  } else {
+    secondNumber += num;
+  }
+  display.value += num;
+}
+
+function calculate() {
+  if (firstNumber !== '' && secondNumber !== '' && operator !== '') {
+    const result = eval(firstNumber + operator + secondNumber);
+    display.value = result;
+    firstNumber = result.toString();
+    secondNumber = '';
+    operator = '';
+  }
+}
+
+buttons.addEventListener("click", function(event) {
+  var button = event.target;
+  if (button.dataset.action == "clear") {
+    clear();
+  } else if (button.dataset.action == "add") {
+    setOperator('+');
+  } else if (button.dataset.action == "subtract") {
+    setOperator('-');
+  } else if (button.dataset.action == "multiply") {
+    setOperator('*');
+  } else if (button.dataset.action == "divide") {
+    setOperator('/');
+  } else if (button.dataset.action == "equal") {
+    calculate();
+  } else {
+    appendNumber(button.textContent);
+  }
+});
+</script>
+</body>
+</html>

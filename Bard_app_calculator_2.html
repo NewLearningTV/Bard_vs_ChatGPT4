@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+
+#display {
+  width: 200px;
+  font-size: 24px;
+}
+
+#buttons {
+  width: 200px;
+  margin-top: 20px;
+}
+
+#buttons button {
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#buttons button:hover {
+  background-color: #444;
+}
+
+#buttons button:active {
+  background-color: #555;
+}
+</style>
+</head>
+<body>
+<div id="display"></div>
+<div id="buttons">
+  <input type="text" id="number1" placeholder="Number 1">
+  <button data-action="clear">C</button>
+  <button data-action="add">+</button>
+  <button data-action="subtract">-</button>
+  <button data-action="multiply">*</button>
+  <button data-action="divide">/</button>
+  <input type="text" id="number2" placeholder="Number 2">
+  <button data-action="equal">=</button>
+</div>
+<script>
+var display = document.getElementById("display");
+var buttons = document.getElementById("buttons");
+var number1 = document.getElementById("number1");
+var number2 = document.getElementById("number2");
+
+function clear() {
+  display.innerHTML = "";
+  number1.value = "";
+  number2.value = "";
+}
+
+function add() {
+  var firstNumber = number1.value;
+  var secondNumber = number2.value;
+  display.innerHTML = eval(firstNumber + "+");
+}
+
+function subtract() {
+  var firstNumber = number1.value;
+  var secondNumber = number2.value;
+  display.innerHTML = eval(firstNumber + "-");
+}
+
+function multiply() {
+  var firstNumber = number1.value;
+  var secondNumber = number2.value;
+  display.innerHTML = eval(firstNumber + "*");
+}
+
+function divide() {
+  var firstNumber = number1.value;
+  var secondNumber = number2.value;
+  display.innerHTML = eval(firstNumber + "/");
+}
+
+function equal() {
+  var firstNumber = number1.value;
+  var operator = document.getElementById("operator").value;
+  var secondNumber = number2.value;
+  display.innerHTML = eval(firstNumber + operator + secondNumber);
+}
+
+buttons.addEventListener("click", function(event) {
+  var button = event.target;
+  if (button.dataset.action == "clear") {
+    clear();
+  } else if (button.dataset.action == "add") {
+    add();
+  } else if (button.dataset.action == "subtract") {
+    subtract();
+  } else if (button.dataset.action == "multiply") {
+    multiply();
+  } else if (button.dataset.action == "divide") {
+    divide();
+  }
+});
+</script>
+</body>
+</html>

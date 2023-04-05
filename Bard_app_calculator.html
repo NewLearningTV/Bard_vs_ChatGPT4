@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+
+#display {
+  width: 200px;
+  font-size: 24px;
+}
+
+#buttons {
+  width: 200px;
+  margin-top: 20px;
+}
+
+#buttons button {
+  width: 50px;
+  height: 50px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#buttons button:hover {
+  background-color: #444;
+}
+
+#buttons button:active {
+  background-color: #555;
+}
+</style>
+</head>
+<body>
+<div id="display"></div>
+<div id="buttons">
+  <button data-action="clear">C</button>
+  <button data-action="add">+</button>
+  <button data-action="subtract">-</button>
+  <button data-action="multiply">*</button>
+  <button data-action="divide">/</button>
+  <button data-action="equal">=</button>
+</div>
+<script>
+var display = document.getElementById("display");
+var buttons = document.getElementById("buttons");
+
+function clear() {
+  display.innerHTML = "";
+}
+
+function add() {
+  var firstNumber = display.innerHTML;
+  display.innerHTML = eval(firstNumber + "+");
+}
+
+function subtract() {
+  var firstNumber = display.innerHTML;
+  display.innerHTML = eval(firstNumber + "-");
+}
+
+function multiply() {
+  var firstNumber = display.innerHTML;
+  display.innerHTML = eval(firstNumber + "*");
+}
+
+function divide() {
+  var firstNumber = display.innerHTML;
+  display.innerHTML = eval(firstNumber + "/");
+}
+
+function equal() {
+  var firstNumber = display.innerHTML;
+  var operator = document.getElementById("operator").value;
+  var secondNumber = display.innerHTML;
+  display.innerHTML = eval(firstNumber + operator + secondNumber);
+}
+
+buttons.addEventListener("click", function(event) {
+  var button = event.target;
+  if (button.dataset.action == "clear") {
+    clear();
+  } else if (button.dataset.action == "add") {
+    add();
+  } else if (button.dataset.action == "subtract") {
+    subtract();
+  } else if (button.dataset.action == "multiply") {
+    multiply();
+  } else if (button.dataset.action == "divide") {
+    divide();
+  }
+});
+</script>
+</body>
+</html>
